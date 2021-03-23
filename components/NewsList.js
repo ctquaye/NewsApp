@@ -5,7 +5,7 @@ import axios from 'axios'
 import Search from './Search'
 import {NewsContext} from '../providers/NewsProvider'
 
-const NewsList=()=>{
+const NewsList=({})=>{
 
     const myContext = useContext(NewsContext)
     //api call to newsapi.org        
@@ -21,12 +21,15 @@ const NewsList=()=>{
     }, [myContext.search])
     
     const handlePress =(index)=>{
-        myContext.setSavedNews([...myContext.news,myContext.news[index]])
-       // console.log('authour', myContext.news[index].author, myContext.savedNews)
+        myContext.setSavedNews([myContext.news[index]])
+        //myContext.setSavedNews([...myContext.savedNews,{title:'charles', description:'is great'}])
+        console.log('authour',myContext.savedNews)
     }
     
-    return(
-        <SafeAreaView style={styles.container}>
+    return(   
+        <SafeAreaView style={styles.header}>
+                <Text style={styles.headerTxt}>Current News</Text>
+        <View style={styles.container}>       
         <Search/>
         <FlatList
                 data={myContext.news}
@@ -37,9 +40,10 @@ const NewsList=()=>{
                         <Text>{item.description}</Text>
                         </TouchableOpacity>                       
                     </View>
-                  )}
-                  keyExtractor={(item,index)=>index.toString()}
+                    )}
+                    keyExtractor={(item,index)=>index.toString()}
             />       
+        </View>
         </SafeAreaView>
     )
   }
@@ -54,5 +58,16 @@ const styles = StyleSheet.create({
         backgroundColor:'#e1f0ef',
         marginBottom:'5%',
         padding:'1%'
-    }
+    },
+    header:{
+        fontFamily:'Roboto',      
+        justifyContent:'center',
+        alignItems:'center', 
+        marginTop: Platform.OS ==='android'? '4%':''
+      },
+      headerTxt:{
+        fontSize:18,
+        fontWeight: 'bold',
+        color:'#3a3c52'
+      }
 })

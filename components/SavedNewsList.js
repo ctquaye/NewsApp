@@ -10,9 +10,9 @@ const SavedNewsList=()=>{
 
     const getData = async ()=>{
         try{
-            const value = await AsyncStorage.getItem('@storage_key')
+            const value = await AsyncStorage.getItem('newsObj')
             if(value!==null){
-                setLoadNews({token:'@storage_keky'})
+                setLoadNews(JSON.parse(value))
             }
         }
         catch(e){
@@ -26,7 +26,7 @@ const SavedNewsList=()=>{
     
     return(
         <SafeAreaView style={styles.container}>
-                <Search/>
+              {}
         <FlatList
                 data={loadNews}
                 renderItem={({ item }) => (
@@ -36,7 +36,7 @@ const SavedNewsList=()=>{
                     </View>
                   )}
                   keyExtractor={(item,index)=>index.toString()}
-            />       
+            />   
         </SafeAreaView>
     )
   }
