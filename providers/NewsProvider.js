@@ -1,8 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Context from 'react'
 import { SafeAreaView } from 'react-native';
 import { View, Text, StyleSheet, Platform} from 'react-native'
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const NewsContext = React.createContext();
 
@@ -11,10 +11,20 @@ const [savedNews, setSavedNews] = useState([]);
 const [input, setInput]=useState('schools')   
 const [news, setNews]=useState([])
 const [search, setSearch]=useState(false)
-  /*useEffect(() => {
+
+const storeData = async ()=>{
+  try{
     if (savedNews !== 0) {
-      AsyncStorage.setItem('@storage_key', `${savedNews}`);
+     await AsyncStorage.setItem('@storage_key', `${savedNews}`);
     }
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+
+  useEffect(() => {
+    storeData()
   }, [savedNews]);
 
   useEffect(() => { 
@@ -23,7 +33,7 @@ const [search, setSearch]=useState(false)
         set(parseInt(value));
       }
     });
-  }, []);*/
+  }, []);
 
   return (
     <NewsContext.Provider 

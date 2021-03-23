@@ -1,6 +1,6 @@
 import React,{useState, useEffect, useContext} from 'react'
 import Context from 'react'
-import {SafeAreaView, View, FlatList, Text, StyleSheet,TextInput,Button} from 'react-native'
+import {SafeAreaView, View, FlatList, Text, StyleSheet,TextInput,Button, TouchableOpacity} from 'react-native'
 import axios from 'axios'
 import Search from './Search'
 import {NewsContext} from '../providers/NewsProvider'
@@ -18,17 +18,24 @@ const NewsList=()=>{
 
     useEffect(() => {
        getNews()
-    }, [myContext.Input])
-       
+    }, [myContext.search])
+    
+    const handlePress =(index)=>{
+        myContext.setSavedNews([...myContext.news,myContext.news[index]])
+       // console.log('authour', myContext.news[index].author, myContext.savedNews)
+    }
+    
     return(
         <SafeAreaView style={styles.container}>
         <Search/>
         <FlatList
                 data={myContext.news}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                     <View style={styles.listItem}>
-                        <Text style={{color:'#3d878f', fontWeight:'bold', fontSize:14}}>{item.title}</Text>
+                        <TouchableOpacity onPress={()=>handlePress(index)}>
+                        <Text style={{color:'#2d3acc', fontWeight:'bold', fontSize:14}}>{item.title}</Text>
                         <Text>{item.description}</Text>
+                        </TouchableOpacity>                       
                     </View>
                   )}
                   keyExtractor={(item,index)=>index.toString()}
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
         margin:'3%'
     },
     listItem:{
-        backgroundColor:'#d8dae6',
+        backgroundColor:'#e1f0ef',
         marginBottom:'5%',
         padding:'1%'
     }

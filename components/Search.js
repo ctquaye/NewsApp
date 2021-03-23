@@ -7,15 +7,20 @@ const Search=()=>{
       const [search, setSearch]=React.useState(false)
     useEffect(() => {
       myContext.setInput(textIn)
+      myContext.setSearch(search)
   }, [search])
 
   const myContext = useContext(NewsContext)
 
+  const handleTextChange =(text)=>{
+    setSearch(false)
+    setTextIn(text)
+  }  
   return(
     <View style={{marginBottom:'3%'}}>
          <TextInput
       style={{height:40, backgroundColor:'darkgrey', borderRadius:2}}
-        onChangeText={((text)=> setTextIn(text))}
+        onChangeText={handleTextChange}
         placeholder='search for news'
       />
       <Button 

@@ -2,6 +2,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native';
 import { View, Text, StyleSheet, Platform} from 'react-native'
 import NewsList from './components/NewsList';
+import SavedNewsList from './components/SavedNewsList';
 import {NewsProvider} from './providers/NewsProvider'
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
   <NewsProvider> 
     <SafeAreaView style={styles.header}>
       <Text style={styles.headerTxt}>Current News</Text>
-    <NewsList/> 
+    <SavedNewsList/> 
     </SafeAreaView>
    </NewsProvider>  
   );
@@ -30,6 +31,6 @@ const styles = StyleSheet.create({
     headerTxt:{
       fontSize:18,
       fontWeight: 'bold',
-      color:'#184447'
+      color:'#3a3c52'
     }
 })
