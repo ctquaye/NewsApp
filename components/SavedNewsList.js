@@ -1,34 +1,16 @@
 import React,{useState, useEffect, useContext} from 'react'
 import {SafeAreaView, View, FlatList, Text, StyleSheet} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import Search from './Search'
-
+import {NewsContext} from '../providers/NewsProvider'
 
 const SavedNewsList=()=>{
 
-    const [loadNews, setLoadNews]=useState([])
-
-    const getData = async ()=>{
-        try{
-            const value = await AsyncStorage.getItem('newsObj')
-            if(value!==null){
-                setLoadNews(JSON.parse(value))
-            }
-        }
-        catch(e){
-            console.log(e)
-        }
-    }
-
-    useEffect(() => { 
-       getData();
-      }, []);
-    
+    const myContext = useContext(NewsContext)    
     return(
         <SafeAreaView style={styles.container}>
-              {}
+              <Text style={styles.header}>Saved News</Text>
         <FlatList
-                data={loadNews}
+                data={myContext.loadNews}
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
                         <Text style={{color:'#3d878f', fontWeight:'bold', fontSize:14}}>{item.title}</Text>
@@ -51,5 +33,11 @@ const styles = StyleSheet.create({
         backgroundColor:'#d8dae6',
         marginBottom:'5%',
         padding:'1%'
+    },
+    header:{
+    fontSize:18,
+    fontWeight: 'bold',
+    color:'#3a3c52'
     }
+    
 })

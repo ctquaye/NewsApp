@@ -10,7 +10,7 @@ const NewsList=({})=>{
     const myContext = useContext(NewsContext)
     //api call to newsapi.org        
     const getNews= async()=>{
-        const apiUrl = 'http://newsapi.org/v2/everything?apiKey=3493bbe0e5ac45699d9b311278dc412f&q='+myContext.input; 
+        const apiUrl = 'http://newsapi.org/v2/everything?apiKey=9d18d11ff9944b7cbbfe163458233747&q='+myContext.input; 
         const response = await axios.get(apiUrl);
         console.log('input', myContext.input)
         myContext.setNews(response.data.articles)
@@ -21,8 +21,7 @@ const NewsList=({})=>{
     }, [myContext.search])
     
     const handlePress =(index)=>{
-        myContext.setSavedNews([myContext.news[index]])
-        //myContext.setSavedNews([...myContext.savedNews,{title:'charles', description:'is great'}])
+        myContext.setSavedNews([...myContext.savedNews, myContext.news[index]])
         console.log('authour',myContext.savedNews)
     }
     

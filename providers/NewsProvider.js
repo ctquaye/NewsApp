@@ -7,10 +7,28 @@ import AsyncStorage from '@react-native-community/async-storage';
 const NewsContext = React.createContext();
 
 const NewsProvider = (props) => {
-const [savedNews, setSavedNews] = useState();
-const [input, setInput]=useState(['news'])   
-const [news, setNews]=useState([])
+const [savedNews, setSavedNews] = useState([]);
+const [input, setInput]=useState('news')   
+const [news, setNews]=useState()
 const [search, setSearch]=useState(false)
+const [loadNews, setLoadNews]=useState([])
+
+const getData = async ()=>{
+    try{
+        const value = await AsyncStorage.getItem('newsObj')
+        if(value!==null){
+            setLoadNews(JSON.parse(value))
+        }
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+useEffect(() => { 
+   getData();
+  }, []);
+
 
 const storeData = async ()=>{
   try{
@@ -33,7 +51,8 @@ const storeData = async ()=>{
       savedNews,setSavedNews,
       input, setInput,
       news, setNews,
-      search ,setSearch
+      search ,setSearch,
+      loadNews, setLoadNews
       }}>
       {props.children}
     </NewsContext.Provider>
