@@ -1,23 +1,24 @@
-import React,{useState } from 'react'
+import React from 'react'
 import { SafeAreaView } from 'react-native';
 import { View, Text, StyleSheet, Platform} from 'react-native'
-import Search from './components/Search'
+import NewsList from './components/NewsList';
 import {NewsProvider} from './providers/NewsProvider'
 
 const App = () => {
 
-  return (   
-  <SafeAreaView style={styles.header}>
-    <Text style={styles.headerTxt}>Current News</Text>
-   <Search/> 
-   </SafeAreaView>
+  return (  
+  <NewsProvider> 
+    <SafeAreaView style={styles.header}>
+      <Text style={styles.headerTxt}>Current News</Text>
+    <NewsList/> 
+    </SafeAreaView>
+   </NewsProvider>  
   );
 };
-
-  <NewsProvider>
-    <App/>
-  </NewsProvider>
+  
 export default App;
+
+
 
 const styles = StyleSheet.create({
     header:{
