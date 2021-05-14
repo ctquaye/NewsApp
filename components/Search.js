@@ -25,7 +25,7 @@ const Search=()=>{
       />
       <Button 
         title={"Search"}
-        color='#112182'
+        color='#b8d9f5'
         onPress={()=>setSearch(true)}
       />
       </View>

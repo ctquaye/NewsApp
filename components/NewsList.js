@@ -1,11 +1,10 @@
 import React,{useState, useEffect, useContext} from 'react'
-import Context from 'react'
-import {SafeAreaView, View, FlatList, Text, StyleSheet,TextInput,Button, TouchableOpacity} from 'react-native'
+import {SafeAreaView, View, FlatList, Text, StyleSheet,TouchableOpacity} from 'react-native'
 import axios from 'axios'
 import Search from './Search'
 import {NewsContext} from '../providers/NewsProvider'
 
-const NewsList=({})=>{
+const NewsList=({navigation})=>{
 
     const myContext = useContext(NewsContext)
     //api call to newsapi.org        
@@ -21,8 +20,9 @@ const NewsList=({})=>{
     }, [myContext.search])
     
     const handlePress =(index)=>{
-        myContext.setSavedNews([...myContext.savedNews, myContext.news[index]])
-        console.log('authour',myContext.savedNews)
+        console.log('index:',index)
+        myContext.setNewsContent(myContext.news[index])
+        navigation.navigate('Detail', {screen:'News Content'})  
     }
     
     return(   
@@ -35,8 +35,8 @@ const NewsList=({})=>{
                 renderItem={({ item, index }) => (
                     <View style={styles.listItem}>
                         <TouchableOpacity onPress={()=>handlePress(index)}>
-                        <Text style={{color:'#2d3acc', fontWeight:'bold', fontSize:14}}>{item.title}</Text>
-                        <Text>{item.description}</Text>
+                        <Text style={{color:'#b8d9f5', fontWeight:'bold', fontSize:14}}>{item.title}</Text>
+                        <Text style={{color:'white'}}>{item.description}</Text>
                         </TouchableOpacity>                       
                     </View>
                     )}
@@ -54,18 +54,21 @@ const styles = StyleSheet.create({
         margin:'3%'
     },
     listItem:{
-        backgroundColor:'#e1f0ef',
-        marginBottom:'5%',
-        padding:'1%'
+        backgroundColor:'#3b3737',
+        marginBottom:'2%',
+        padding:'1%',
+        borderRadius:5,
+            
     },
     header:{
         fontFamily:'Roboto',      
         justifyContent:'center',
         alignItems:'center', 
-        marginTop: Platform.OS ==='android'? '4%':''
+        marginTop: Platform.OS ==='android'? '4%':'',
+        borderColor:'black'
       },
       headerTxt:{
-        fontSize:18,
+        fontSize:20,
         fontWeight: 'bold',
         color:'#3a3c52'
       }
